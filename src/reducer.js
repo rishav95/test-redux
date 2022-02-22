@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action) => {
 };
 
 const rootReducer = combineReducers({
-  todos: todoReducer,
+  todos: todoReducer, // state.todos.entities
   filters: filterReducer,
   counter: counterReducer,
   app: appReducer

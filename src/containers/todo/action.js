@@ -44,10 +44,9 @@ export const handleFetchTodos = () => async (dispatch) => {
   ) || []))
 }
 
-export function saveNewTodo(text) {
+export function saveNewTodo(payload) {
   return async function saveNewTodoThunk(dispatch, getState) {
-    const initialTodo = { text }
-    const response = await createTodo({ ...initialTodo, completed: false })
+    const response = await createTodo(payload) // {text: , completed: }
     dispatch(
       todoAdded({
         ...response.todo,
@@ -60,6 +59,12 @@ export function saveNewTodo(text) {
 export function updateOldTodo(payload) {
   return async function(dispatch, getState) {
     const response = await updateTodo(payload)
+
+    console.log({
+      ...response.todo,
+      completed: !!response.todo.completed,
+    })
+
     dispatch(
       todoUpdated({
         ...response.todo,

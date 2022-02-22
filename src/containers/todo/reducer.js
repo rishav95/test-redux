@@ -3,7 +3,7 @@ import { StatusFilters } from '../filter/contants'
 
 const initialState = {
   status: 'idle',
-  entities: {},
+  entities: {}, // [{id: 14, text: "", completed: false}]
 }
 
 // entities{
@@ -55,18 +55,30 @@ export default function todosReducer(state = initialState, action) {
       }
     }
     case 'todos/todoUpdated': {
-      const { todoId } = action.payload
+      const { id } = action.payload
+
       return {
         ...state,
         entities: {
-          ...state.entities,
-          [todoId]: {
+          ...state.entities, // {14: {id: 14, text: "", completed: boolean}}
+          [id]: {
             ...action.payload
           },
         },
+
+        /* 
+          entities: state.entities.map(todo => {
+            if(todo.id === id) {
+              return action.payload
+            } else {
+              return todo
+            }
+          })
+        */
       }
     }
     case 'todos/todoDeleted': {
+      // state.entities.filter(item => item.id !== action.payload)
       const newEntities = { ...state.entities }
       delete newEntities[action.payload]
       return {

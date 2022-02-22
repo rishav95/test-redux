@@ -16,7 +16,7 @@ const Header = () => {
     if (e.which === 13 && trimmedText) {
       // Create and dispatch the thunk function itself
       setStatus('loading')
-      await dispatch(saveNewTodo(trimmedText))
+      await dispatch(saveNewTodo({ text: trimmedText, completed: true, color: "green" }))
       // And clear out the text input
       setText('')
       setStatus('idle')
